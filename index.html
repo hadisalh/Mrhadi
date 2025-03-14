@@ -1,184 +1,364 @@
-<!DOCTYPE html>
-<html lang="en">
+
+                        <!DOCTYPE html>
+                        <html lang="en">
+                        <head>
+                            <meta charset="UTF-8">
+                            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+							<style>
+								body {
+									background-color: white; /* Ensure the iframe has a white background */
+								}
+
+								
+							</style>
+                        </head>
+                        <body>
+                            <!DOCTYPE html>
+<html lang="ar">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Instagram Username Generator</title>
+    <title>مولد أسماء إنستغرام الذكي</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
+        :root {
+            --primary: #3498db;
+            --secondary: #e74c3c;
+            --success: #2ecc71;
+            --dark: #2c3e50;
+            --light: #f8f9fa;
+            --bg: #ffffff;
+            --text: #2c3e50;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        [data-theme="dark"] {
+            --primary: #3498db;
+            --secondary: #e74c3c;
+            --success: #2ecc71;
+            --dark: #ffffff;
+            --light: #34495e;
+            --bg: #2c3e50;
+            --text: #ecf0f1;
+            --shadow: 0 4px 6px rgba(255, 255, 255, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: all 0.3s ease;
+        }
+
         body {
-            font-family: Arial, sans-serif;
-            background: #f0f2f5;
-            padding: 20px;
-            max-width: 800px;
+            font-family: 'Tajawal', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            line-height: 1.6;
+        }
+
+        .container {
+            flex: 1;
+            max-width: 1200px;
+            width: 95%;
             margin: 0 auto;
+            padding: 2rem 0;
         }
-        .generator-box {
-            background: white;
-            padding: 25px;
-            border-radius: 12px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+
+        header {
+            background: var(--light);
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: var(--shadow);
+            text-align: center;
+            margin-bottom: 1.5rem;
+            position: relative;
         }
-        h1 {
-            color: #333;
-            font-size: 28px;
-            margin-bottom: 20px;
-        }
-        .input-group {
-            margin-bottom: 15px;
-        }
-        label {
-            display: block;
-            margin-bottom: 5px;
-            color: #555;
-            font-weight: bold;
-        }
-        input, select {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            font-size: 16px;
-        }
-        button {
-            background: #8a3ab9;
-            color: white;
-            border: 0;
-            padding: 12px 25px;
-            border-radius: 5px;
+
+        .theme-toggle {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            background: var(--primary);
+            border: none;
+            border-radius: 50%;
+            width: 45px;
+            height: 45px;
             cursor: pointer;
-            font-size: 16px;
-            transition: background 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 3px 5px rgba(0,0,0,0.2);
+            z-index: 10;
         }
+
+        .theme-toggle i {
+            color: white;
+            font-size: 1.2rem;
+        }
+
+        h1 {
+            color: var(--dark);
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        h1::after {
+            content: '';
+            position: absolute;
+            width: 60px;
+            height: 3px;
+            background: var(--primary);
+            bottom: -5px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .input-group {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        select, input[type="number"] {
+            padding: 1.2rem;
+            border: 2px solid var(--primary);
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            outline: none;
+            width: 100%;
+            background: var(--light);
+            color: var(--text);
+        }
+
+        button {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            border: none;
+            padding: 1.2rem 2rem;
+            border-radius: 25px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+            width: 100%;
+            max-width: 400px;
+            margin: 0 auto;
+            display: block;
+            box-shadow: var(--shadow);
+        }
+
         button:hover {
-            background: #6c279e;
+            transform: translateY(-3px);
         }
-        .results {
-            margin-top: 25px;
+
+        .suggestions {
+            background: var(--light);
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: var(--shadow);
+            margin-top: 1.5rem;
         }
-        .username {
-            background: #f8f9fa;
-            padding: 10px;
-            border-radius: 5px;
-            margin: 5px 0;
+
+        .suggestion-item {
+            background: var(--light);
+            border-radius: 10px;
+            padding: 1.2rem;
+            margin: 0.7rem 0;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            transition: all 0.3s ease;
         }
+
         .check-btn {
-            background: #4CAF50;
-            padding: 8px 15px;
-            border-radius: 5px;
+            background: var(--success);
+            padding: 0.8rem 1.5rem;
+            border-radius: 20px;
             color: white;
             text-decoration: none;
-            margin-left: 10px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
         }
-        .warning {
-            background: #fff3cd;
-            border: 1px solid #ffeeba;
-            padding: 15px;
-            border-radius: 5px;
-            margin-top: 20px;
-            color: #856404;
+
+        .footer {
+            text-align: center;
+            padding: 2rem 1rem;
+            background: var(--light);
+            border-top: 1px solid var(--primary);
+            margin-top: auto;
+        }
+
+        .social-icons {
+            margin-top: 1rem;
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+        }
+
+        .social-icons a {
+            color: var(--text);
+            font-size: 1.5rem;
+            transition: color 0.3s ease;
+            text-decoration: none;
+        }
+
+        .social-icons a:hover {
+            color: var(--primary);
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+
+            .input-group {
+                grid-template-columns: 1fr;
+            }
+
+            button {
+                font-size: 1rem;
+                padding: 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            header {
+                padding: 1.5rem;
+            }
+
+            .suggestions {
+                padding: 1.5rem;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="generator-box">
-        <h1>Instagram Username Generator</h1>
-        
-        <div class="input-group">
-            <label>اختر النمط:</label>
-            <select id="pattern">
-                <option value="words">كلمات عربية/إنجليزية</option>
-                <option value="numbers">أرقام فقط</option>
-                <option value="mix">حروف وأرقام</option>
-                <option value="custom">نمط مخصص</option>
-            </select>
-        </div>
-        
-        <div class="input-group" id="customPatternGroup" style="display: none;">
-            <label>النمط المخصص (استخدم X للحروف و # للأرقام):</label>
-            <input type="text" id="customPattern" placeholder="مثال: XXX### أو ##XOXO">
-        </div>
-        
-        <button onclick="generateUsernames()">توليد أسماء</button>
-        
-        <div class="results" id="results"></div>
-        
-        <div class="warning">
-            ⚠️ ملاحظة مهمة: 
-            <ul>
-                <li>هذا الكود لا يفحص التوفر الفعلي بسبب قيود إنستغرام</li>
-                <li>التأكد من التوفر يتم يدويًا عبر زيارة: instagram.com/[username]</li>
-                <li>الاستخدام المكثف قد ينتهك شروط خدمة إنستغرام</li>
-            </ul>
-        </div>
+    <div class="container">
+        <header>
+            <button class="theme-toggle" onclick="toggleTheme()">
+                <i id="theme-icon" class="fas fa-moon"></i>
+            </button>
+            <h1>مولد أسماء إنستغرام الذكي</h1>
+            <div class="input-group">
+                <select id="characterType">
+                    <option value="lowercase">حروف صغيرة فقط (a-z)</option>
+                    <option value="alphanumeric">حروف وأرقام (a-z, 0-9)</option>
+                    <option value="symbols">حروف وأرقام ورموز (a-z, 0-9, _, .)</option>
+                </select>
+                <input type="number" id="lengthInput" placeholder="عدد الحروف (3-30)" min="3" max="30">
+            </div>
+            <button onclick="generateUsernames()">إنشاء أسماء</button>
+        </header>
+
+        <div class="suggestions" id="suggestions"></div>
     </div>
 
+    <footer class="footer">
+        <p>برمجة: الأستاذ هادي الدليمي &copy; 2023</p>
+        <div class="social-icons">
+            <a href="https://www.facebook.com/share/18hLK4656B/" target="_blank">
+                <i class="fab fa-facebook"></i>
+            </a>
+            <a href="https://www.instagram.com/h.d.i_14?igsh=MW54OHFhZHpsNmMzZA==" target="_blank">
+                <i class="fab fa-instagram"></i>
+            </a>
+            <a href="https://t.me/mr_haldulimy" target="_blank">
+                <i class="fab fa-telegram"></i>
+            </a>
+        </div>
+    </footer>
+
     <script>
-        function generateUsernames() {
-            const patternType = document.getElementById('pattern').value;
-            const resultsDiv = document.getElementById('results');
-            resultsDiv.innerHTML = '';
+        // Theme Toggle
+        const toggleTheme = () => {
+            const body = document.body;
+            const themeIcon = document.getElementById('theme-icon');
             
-            let pattern = '';
-            
-            if (patternType === 'custom') {
-                pattern = document.getElementById('customPattern').value;
+            if (body.getAttribute('data-theme') === 'dark') {
+                body.removeAttribute('data-theme');
+                themeIcon.classList.remove('fa-sun');
+                themeIcon.classList.add('fa-moon');
+                localStorage.setItem('theme', 'light');
             } else {
-                // Generate default pattern based on selection
-                const patterns = {
-                    'words': 'XXXXXX',
-                    'numbers': '######',
-                    'mix': 'XXX###'
-                };
-                pattern = patterns[patternType];
+                body.setAttribute('data-theme', 'dark');
+                themeIcon.classList.remove('fa-moon');
+                themeIcon.classList.add('fa-sun');
+                localStorage.setItem('theme', 'dark');
+            }
+        };
+
+        // Initialize theme
+        const initTheme = () => {
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'dark') {
+                document.body.setAttribute('data-theme', 'dark');
+                document.getElementById('theme-icon').classList.add('fa-sun');
+            }
+        };
+        initTheme();
+
+        // Generate usernames
+        function generateUsernames() {
+            const characterType = document.getElementById('characterType').value;
+            const length = parseInt(document.getElementById('lengthInput').value.trim(), 10);
+            const suggestionsDiv = document.getElementById('suggestions');
+
+            suggestionsDiv.innerHTML = '';
+            
+            if (isNaN(length) || length < 3 || length > 30) {
+                suggestionsDiv.innerHTML = '<p class="error" style="color: var(--secondary); text-align: center; margin: 1rem;">يرجى إدخال عدد حروف بين 3 و 30.</p>';
+                return;
             }
 
-            const usernames = [];
-            const count = 10; // Number of usernames to generate
-            
-            for (let i = 0; i < count; i++) {
+            let characters = '';
+            switch (characterType) {
+                case 'lowercase': characters = 'abcdefghijklmnopqrstuvwxyz'; break;
+                case 'alphanumeric': characters = 'abcdefghijklmnopqrstuvwxyz0123456789'; break;
+                case 'symbols': characters = 'abcdefghijklmnopqrstuvwxyz0123456789_.'; break;
+            }
+
+            const usernames = new Set();
+            while (usernames.size < 10) {
                 let username = '';
-                for (const char of pattern) {
-                    if (char === 'X') {
-                        username += getRandomLetter();
-                    } else if (char === '#') {
-                        username += getRandomNumber();
-                    } else {
-                        username += char;
-                    }
+                for (let i = 0; i < length; i++) {
+                    username += characters[Math.floor(Math.random() * characters.length)];
                 }
-                usernames.push(username);
+                usernames.add(username);
             }
 
             usernames.forEach(username => {
-                const div = document.createElement('div');
-                div.className = 'username';
-                
-                div.innerHTML = `
-                    ${username}
-                    <a href="https://www.instagram.com/${username}" target="_blank" class="check-btn">تحقق يدويًا</a>
+                const item = document.createElement('div');
+                item.className = 'suggestion-item';
+                item.innerHTML = `
+                    <span>${username}</span>
+                    <a href="https://www.instagram.com/${encodeURIComponent(username)}/" 
+                       target="_blank" 
+                       class="check-btn">
+                        <i class="fas fa-check"></i> تحقق الآن
+                    </a>
                 `;
-                
-                resultsDiv.appendChild(div);
+                suggestionsDiv.appendChild(item);
             });
         }
-
-        function getRandomLetter() {
-            const letters = 'abcdefghijklmnopqrstuvwxyz';
-            return letters[Math.floor(Math.random() * letters.length)];
-        }
-
-        function getRandomNumber() {
-            return Math.floor(Math.random() * 10);
-        }
-
-        // Show/hide custom pattern input
-        document.getElementById('pattern').addEventListener('change', function() {
-            const customGroup = document.getElementById('customPatternGroup');
-            customGroup.style.display = (this.value === 'custom') ? 'block' : 'none';
-        });
     </script>
 </body>
 </html>
+
+
+
+							<script>
+                            	
+							</script>
+                        </body>
+                        </html>
+                    
